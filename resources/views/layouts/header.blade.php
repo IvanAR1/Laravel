@@ -7,5 +7,6 @@
     <title>@yield("title")</title>
 </head>
 <body class="dark:bg-gray-700 dark:text-gray-200">
+    
     @yield("content")
 </body>

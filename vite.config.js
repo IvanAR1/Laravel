@@ -9,12 +9,8 @@ export default defineConfig({
         }),
     ],
     server: {
-        host:"www.example.com",
-        cors: true,
-        hmr: {
-            host:"www.example.com",
-            protocol:"http",
-        },
+        host:'localhost',
+        cors:true,
+        hmr:false
     },
-
 });

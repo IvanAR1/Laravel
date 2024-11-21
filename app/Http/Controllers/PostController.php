@@ -10,6 +10,24 @@ use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
+    private $inputs = [
+        [
+            "key"=>"title",
+            "label"=>"Título",
+            "placeholder"=>"Coloca un título",
+        ],
+        [
+            "key"=>"description",
+            "label"=>"Descripción",
+            "placeholder"=>"Coloca una descripción"
+        ],
+        [
+            "key"=>"slug",
+            "label"=>"Slug",
+            "placeholder"=>"Coloca una descripción de la URL"
+        ]
+    ];
+
     /**
      * Display a listing of the resource.
      */
@@ -19,7 +37,11 @@ class PostController extends Controller
             ->where('is_active', 1)
             ->paginate(10);
         $courses->makeHidden(['id', 'is_active', 'slug', 'created_at', 'updated_at']);
-        return view('courses.principal', compact('courses'));
+        $keys = collect($courses->first())->keys()->all();
+        return view('courses.principal', [
+            'courses' => $courses,
+            'keys' => $keys
+        ]);
     }
 
     /**
@@ -28,7 +50,11 @@ class PostController extends Controller
     public function create()
     {
         $categories = ['Frontend', 'Backend', 'Mobile'];
-        return view('courses.create_course', compact('categories'));
+        
+        return view('courses.create_course', [
+            "categories"=>$categories,
+            "inputs"=>$this->inputs
+        ]);
     }
 
     /**
@@ -55,7 +81,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = ['Frontend', 'Backend', 'Mobile'];
-        return view('courses.edit_course', array_merge(compact('post'), compact('categories')));
+        return view('courses.edit_course', array_merge(compact('post'), ["inputs"=>$this->inputs],  compact('categories')));
     }
 
     /**
