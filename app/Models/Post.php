@@ -21,7 +21,6 @@ class Post extends Model
         'slug',
         'description',
         'category',
-        'is_active',
     ];
     
     protected $guarded = [

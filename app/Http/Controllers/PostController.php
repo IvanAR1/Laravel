@@ -63,7 +63,7 @@ class PostController extends Controller
     public function store(StorePostRequest $request)
     {
         $post = Post::create($request->all());
-        Mail::to('prueba@example.com')->send(new PostCreatedMail($post));
+        #Mail::to('prueba@example.com')->send(new PostCreatedMail($post));
         return redirect()->route('courses.index');
     }
 
